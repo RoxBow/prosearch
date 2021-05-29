@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import Router from 'next/router';
+import { FormControl, FormLabel, FormErrorMessage, Input, Button, VStack } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import useUser from '../../../hooks/useUser';
 
@@ -9,7 +8,7 @@ type FormValues = {
 };
 
 const LoginForm = () => {
-  const [user, { mutate }] = useUser();
+  const [, { mutate }] = useUser();
 
   const {
     register,
@@ -33,26 +32,30 @@ const LoginForm = () => {
       }
     });
 
-  useEffect(() => {
-    if (user) Router.push('/profile');
-  }, [user]);
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <h1>Login form</h1>
-      <label htmlFor="field-username">Username</label>
-      <input
-        defaultValue="test"
-        id="field-username"
-        {...register('username', { required: true })}
-      />
-      {errors.username && <span>This field is required</span>}
+      <VStack spacing="4px">
+        <FormControl isInvalid={!!errors.username}>
+          <FormLabel htmlFor="username">Username</FormLabel>
+          <Input
+            type="text"
+            id="username"
+            placeholder="Totoro"
+            {...register('username', { required: true })}
+          />
+          <FormErrorMessage>Field required</FormErrorMessage>
+        </FormControl>
 
-      <label htmlFor="field-password">Password</label>
-      <input type="password" id="field-password" {...register('password', { required: true })} />
-      {errors.password && <span>This field is required</span>}
+        <FormControl isInvalid={!!errors.password}>
+          <FormLabel htmlFor="username">Password</FormLabel>
+          <Input type="password" id="password" {...register('password', { required: true })} />
+          <FormErrorMessage>Field required</FormErrorMessage>
+        </FormControl>
+      </VStack>
 
-      <input type="submit" value="submit" />
+      <Button mt={4} colorScheme="teal" type="submit">
+        Submit
+      </Button>
     </form>
   );
 };

@@ -1,3 +1,4 @@
+import { FormControl, FormLabel, FormErrorMessage, Input, Button, VStack } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 type FormValues = {
@@ -24,26 +25,39 @@ const RegisterForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <h1>Register form</h1>
+      <VStack spacing="4px">
+        <FormControl isInvalid={!!errors.username}>
+          <FormLabel htmlFor="username">Username</FormLabel>
+          <Input
+            type="text"
+            id="username"
+            placeholder="Totoro"
+            {...register('username', { required: true })}
+          />
+          <FormErrorMessage>Field required</FormErrorMessage>
+        </FormControl>
 
-      <label htmlFor="field-username">Username</label>
+        <FormControl isInvalid={!!errors.email}>
+          <FormLabel htmlFor="email">Email</FormLabel>
+          <Input
+            type="email"
+            id="email"
+            placeholder="Totoro"
+            {...register('email', { required: true })}
+          />
+          <FormErrorMessage>Field required</FormErrorMessage>
+        </FormControl>
 
-      <input
-        defaultValue="test"
-        id="field-username"
-        {...register('username', { required: true })}
-      />
-      {errors.username && <span>This field is required</span>}
+        <FormControl isInvalid={!!errors.password}>
+          <FormLabel htmlFor="username">Password</FormLabel>
+          <Input type="password" id="password" {...register('password', { required: true })} />
+          <FormErrorMessage>Field required</FormErrorMessage>
+        </FormControl>
+      </VStack>
 
-      <label htmlFor="field-email">Email</label>
-      <input type="email" id="field-email" {...register('email', { required: true })} />
-      {errors.email && <span>This field is required</span>}
-
-      <label htmlFor="field-password">Password</label>
-      <input type="password" id="field-password" {...register('password', { required: true })} />
-      {errors.password && <span>This field is required</span>}
-
-      <input type="submit" value="submit" />
+      <Button mt={4} colorScheme="teal" type="submit">
+        Submit
+      </Button>
     </form>
   );
 };
