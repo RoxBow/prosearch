@@ -7,9 +7,9 @@ passport.serializeUser(function (user, done) {
   done(null, user.username);
 });
 
-passport.deserializeUser(function (req, username, done) {
+passport.deserializeUser(async function (req, username, done) {
   // deserialize the username back into user object
-  const user = findUserByUsername(req, username);
+  const user = await findUserByUsername(req, username);
   done(null, user);
 });
 

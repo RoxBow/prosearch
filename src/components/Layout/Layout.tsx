@@ -1,11 +1,13 @@
 import { ReactNode } from 'react';
 import Head from 'next/head';
 import NavBar from '../NavBar/NavBar';
+import { Flex, VStack } from '@chakra-ui/react';
+import Header from '../Header/Header';
 
 type Props = {
-  title?: string;
-  description?: string;
-  children: ReactNode;
+  readonly title?: string;
+  readonly description?: string;
+  readonly children: ReactNode;
 };
 
 const Layout = ({ title, description, children }: Props) => (
@@ -16,9 +18,14 @@ const Layout = ({ title, description, children }: Props) => (
       <link rel="icon" href="/favicon.ico" />
     </Head>
 
-    <NavBar />
+    <Flex direction="row" bg="gray.100" w="100%" h="100%">
+      <NavBar />
 
-    {children}
+      <VStack spacing={4} p={6} w="100%" align="left">
+        <Header />
+        {children}
+      </VStack>
+    </Flex>
   </>
 );
 

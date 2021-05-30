@@ -9,11 +9,7 @@ const handler = nextConnect<ExtendedRequest, NextApiResponse>();
 handler
   .use(all)
   .get((req, res) => {
-    // You do not generally want to return the whole user object
-    // because it may contain sensitive field such as !!password!! Only return what needed
-    // const { name, username, favoriteColor } = req.user
-    // res.json({ user: { name, username, favoriteColor } })
-    res.json({ user: req.user });
+    res.status(200).json({ user: req.user });
   })
   .use((req, res, next) => {
     // handlers after this (PUT, DELETE) all require an authenticated user
