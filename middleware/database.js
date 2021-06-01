@@ -1,16 +1,23 @@
-import { MongoClient } from 'mongodb';
+import mongoose from 'mongoose';
 
-const URI = 'mongodb://127.0.0.1:27017';
+const MONGODB_URI = process.env.DATABASE_URL;
 
-const client = new MongoClient(URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+if (!MONGODB_URI) {
+  throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
+}
 
 async function database(req, res, next) {
-  if (!client.isConnected()) await client.connect();
-  req.dbClient = client;
-  req.db = client.db('prosearch');
+  const opts = {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    bufferCommands: false,
+    bufferMaxEntries: 0,
+    useFindAndModify: false,
+  };
+
+  global.mongoose = await mongoose.connect(MONGODB_URI, opts);
+
   return next();
 }
 

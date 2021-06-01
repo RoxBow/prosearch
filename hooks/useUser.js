@@ -3,10 +3,9 @@ import useSWR from 'swr';
 const fetcher = url => fetch(url).then(r => r.json());
 
 function useUser() {
-  const { data, mutate } = useSWR('/api/user', fetcher);
+  const { data: user, mutate } = useSWR('/api/users/me', fetcher);
 
-  const loading = !data;
-  const user = data?.user;
+  const loading = !user;
   return [
     user,
     {

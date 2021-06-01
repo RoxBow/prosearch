@@ -7,7 +7,7 @@ import { ExtendedRequest } from '../../types';
 const handler = nextConnect<ExtendedRequest, NextApiResponse>();
 
 handler.use(all).post(passport.authenticate('local'), (req, res) => {
-  res.status(200).json({ ...req.user });
+  res.status(200).json(req.user);
 });
 
 export default handler;

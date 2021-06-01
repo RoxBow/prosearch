@@ -1,21 +1,20 @@
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
-import { findUserByUsername, validatePassword } from '../db/user';
+import validatePassword from '../utils/validatePassword';
+import UserSchema from '@/models/User';
 
-passport.serializeUser(function (user, done) {
-  // serialize the username into session
-  done(null, user.username);
+passport.serializeUser((user, done) => {
+  done(null, user._id);
 });
 
-passport.deserializeUser(async function (req, username, done) {
-  // deserialize the username back into user object
-  const user = await findUserByUsername(req, username);
+passport.deserializeUser(async (req, id, done) => {
+  const user = await UserSchema.findById(id);
   done(null, user);
 });
 
 passport.use(
   new LocalStrategy({ passReqToCallback: true }, async (req, username, password, done) => {
-    const user = await findUserByUsername(req, username);
+    const user = await UserSchema.findOne({ username });
 
     if (!user || !validatePassword(user, password)) {
       done(null, null);
