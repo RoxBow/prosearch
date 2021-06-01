@@ -1,4 +1,4 @@
-import { User } from '../../../types/user';
+import User from '../../../types/user';
 import UserCard from '../UserCard/UserCard';
 import { HStack } from '@chakra-ui/react';
 

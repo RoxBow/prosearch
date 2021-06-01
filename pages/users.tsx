@@ -1,6 +1,6 @@
 import Layout from '../src/components/Layout/Layout';
 import { VStack } from '@chakra-ui/react';
-import { User } from '../types/user';
+import User from '../types/user';
 import { server } from '../config';
 import UserList from '../src/components/UserList/UserList';
 import UsersHeader from '../src/components/UsersHeader/UsersHeader';
