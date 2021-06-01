@@ -2,7 +2,7 @@ import crypto from 'crypto';
 import { nanoid } from 'nanoid';
 
 export async function getAllUsers(req) {
-  return await req.db.collection('Users').find({});
+  return await req.db.collection('Users').find({}).toArray();
 }
 
 export async function createUser(req, { username, password, email }) {

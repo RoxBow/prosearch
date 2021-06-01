@@ -21,7 +21,7 @@ const Layout = ({ title, description, children }: Props) => (
     <Flex direction="row" bg="gray.100" w="100%" h="100%">
       <NavBar />
 
-      <VStack spacing={4} p={6} w="100%" align="left">
+      <VStack spacing={4} p={6} align="left" flex={1}>
         <Header />
         {children}
       </VStack>

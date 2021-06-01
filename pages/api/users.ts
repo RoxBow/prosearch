@@ -8,9 +8,9 @@ const handler = nextConnect<ExtendedRequest, NextApiResponse>();
 
 handler
   .use(all)
-  .get((req, res) => {
-    // Remove this in production
-    res.json({ users: getAllUsers(req) });
+  .get(async (req, res) => {
+    const users = await getAllUsers(req);
+    res.json({ users });
   })
   .post(async (req, res) => {
     const { username, password, email } = req.body;
