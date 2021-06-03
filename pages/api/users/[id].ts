@@ -11,7 +11,7 @@ handler
   .get(async (req, res) => {
     const { id } = req.query;
 
-    if (id === 'me' && req.user) return res.status(200).json(req.user);
+    if (id === 'me' && req.user) return res.status(200).json({ success: true, user: req.user });
     if (id === 'me' && !req.user) return res.status(400).json({ success: false });
 
     const user = await UserSchema.findById(id);
