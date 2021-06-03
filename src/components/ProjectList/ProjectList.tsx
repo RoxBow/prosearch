@@ -10,7 +10,7 @@ const ProjectList = ({ projects }: Props) => {
   return (
     <HStack spacing={4}>
       {projects.map(project => (
-        <ProjectCard project={project} key={project._id} />
+        <ProjectCard project={project} key={project.id} />
       ))}
     </HStack>
   );

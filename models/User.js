@@ -42,6 +42,24 @@ const UserSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+UserSchema.set('toJSON', {
+  transform: (document, returnedObject) => {
+    returnedObject.id = document.id;
+    delete returnedObject._id;
+    delete returnedObject.__v;
+    return returnedObject;
+  },
+});
+
+UserSchema.set('toObject', {
+  transform: (document, returnedObject) => {
+    returnedObject.id = document.id;
+    delete returnedObject._id;
+    delete returnedObject.__v;
+    return returnedObject;
+  },
+});
+
 UserSchema.methods.validPassword = password => validatePassword(this, password);
 
 export default mongoose.models.User || mongoose.model('User', UserSchema);

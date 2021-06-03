@@ -8,7 +8,7 @@ type Realisation = {
 };
 
 interface Project {
-  readonly _id: string;
+  readonly id: string;
   readonly name: string;
   readonly author: {
     username: User['username'];

@@ -15,4 +15,22 @@ const ProjectSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+ProjectSchema.set('toJSON', {
+  transform: (document, returnedObject) => {
+    returnedObject.id = document.id;
+    delete returnedObject._id;
+    delete returnedObject.__v;
+    return returnedObject;
+  },
+});
+
+ProjectSchema.set('toObject', {
+  transform: (document, returnedObject) => {
+    returnedObject.id = document.id;
+    delete returnedObject._id;
+    delete returnedObject.__v;
+    return returnedObject;
+  },
+});
+
 export default mongoose.models.Project || mongoose.model('Project', ProjectSchema);

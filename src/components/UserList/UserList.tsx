@@ -10,7 +10,7 @@ const UserList = ({ users }: Props) => {
   return (
     <HStack spacing={4}>
       {users.map(user => (
-        <UserCard user={user} key={user._id} />
+        <UserCard user={user} key={user.id} />
       ))}
     </HStack>
   );

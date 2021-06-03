@@ -12,4 +12,22 @@ const RealisationSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+RealisationSchema.set('toJSON', {
+  transform: (document, returnedObject) => {
+    returnedObject.id = document.id;
+    delete returnedObject._id;
+    delete returnedObject.__v;
+    return returnedObject;
+  },
+});
+
+RealisationSchema.set('toObject', {
+  transform: (document, returnedObject) => {
+    returnedObject.id = document.id;
+    delete returnedObject._id;
+    delete returnedObject.__v;
+    return returnedObject;
+  },
+});
+
 export default mongoose.models.Realisation || mongoose.model('Realisation', RealisationSchema);

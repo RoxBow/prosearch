@@ -10,7 +10,7 @@ handler
   .use(all)
   .get(async (req, res) => {
     const { id } = req.query;
-    const project = await ProjectSchema.findById(id);
+    const project = await ProjectSchema.findById(id).populate('author', '_id');
 
     if (!project) {
       return res.status(400).json({ success: false });
@@ -26,16 +26,20 @@ handler
     }
   })
   .put(async (req, res) => {
-    if (req.user.id !== req.query.id) return res.status(401).send('unauthorized');
+    let docProject = await ProjectSchema.findOne({ _id: req.query.id }).populate('author', '_id');
 
-    const project = await ProjectSchema.findByIdAndUpdate(req.body.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
-
-    if (!project) {
+    if (!docProject) {
       return res.status(400).json({ success: false });
     }
+
+    if (req.user.id !== docProject.author.id) return res.status(401).send('unauthorized');
+
+    Object.entries(req.body).forEach(([key, value]) => {
+      docProject[key] = value;
+    });
+
+    const project = await docProject.save();
+
     res.status(200).json({ success: true, project });
   })
   .delete(async (req, res) => {

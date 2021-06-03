@@ -27,11 +27,11 @@ handler
       return res.status(400).send('Missing fields');
     }
 
-    const project = { name, author: req.user._id };
+    const project = { name, author: req.user.id };
     const projectCreated = await ProjectSchema.create(project).then(async docProject => {
       await UserSchema.findByIdAndUpdate(
-        req.user._id,
-        { $push: { projects: docProject._id } },
+        req.user.id,
+        { $push: { projects: docProject.id } },
         { new: true, useFindAndModify: false }
       );
 

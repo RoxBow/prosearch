@@ -15,7 +15,9 @@ const ModalLogin = () => {
 
   return (
     <>
-      <Button onClick={onOpen}>Create project</Button>
+      <Button colorScheme="blue" onClick={onOpen}>
+        Create
+      </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
