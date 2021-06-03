@@ -18,16 +18,16 @@ const NavBar = () => {
       onMouseLeave={() => setHover(false)}>
       <List spacing={6} textAlign="center">
         <ListItem
-          borderRight={router.pathname === '/works' ? '2px solid' : 'none'}
+          borderRight={router.pathname === '/projects' ? '2px solid' : 'none'}
           borderColor="orange.400"
           cursor="pointer"
           px={4}>
-          <Link href="#">
+          <Link href="/projects">
             <Text>
               <Icon as={CgToolbox} w={6} h={6} mr={2} />
               {hovered && (
                 <Text as="span" verticalAlign="middle">
-                  Works
+                  Projects
                 </Text>
               )}
             </Text>
