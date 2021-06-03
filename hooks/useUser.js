@@ -1,6 +1,5 @@
 import useSWR from 'swr';
-
-const fetcher = url => fetch(url).then(r => r.json());
+import fetcher from '../utils/fetcher';
 
 function useUser() {
   const { data, mutate } = useSWR('/api/users/me', fetcher);
